@@ -1,66 +1,103 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using RaktarModel;
 using System.IO;
 using System.Collections.ObjectModel;
 
 namespace RaktarGUI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        public static ObservableCollection<Termek> Termekek = new ObservableCollection<Termek>();
+        
+        public ObservableCollection<Termek> MegjelenitettTermekek { get; set; } = new ObservableCollection<Termek>();
+        private List<Termek> MindenTermek = new List<Termek>();
+
         public MainWindow()
         {
             InitializeComponent();
-            Adatbetoltes("termekek.txt");
-            Kiiras();
-        }
 
-        #region Kiiras
-        private void Kiiras()
-        {
-            dgTermekek.ItemsSource = Termekek;
+            if (Adatbetoltes("termekek.txt"))
+            {
+                dgTermekek.ItemsSource = MegjelenitettTermekek;
+                Kiiras();
+            }
 
-            if (Termekek != null && Termekek.Any())
-            {
-                double maxAr = Termekek.Max(t => t.Egysegar);
-                txtStatus.Text = $"Legnagyobb egységár: {maxAr:F2}";
-            }
-            else
-            {
-                txtStatus.Text = "Nincsenek beolvasott termékek";
-            }
+            txtKereses.TextChanged += TxtKereses_TextChanged;
         }
-        #endregion
 
         #region Adatbetoltes
-        public static bool Adatbetoltes(string fajl)
+        public bool Adatbetoltes(string fajl)
         {
             try
             {
                 var adatok = Termek.Beolvas(fajl);
-                Termekek = new ObservableCollection<Termek>(adatok);
+                MindenTermek = adatok.ToList();
+
+                MegjelenitettTermekek.Clear();
+                foreach (var t in MindenTermek)
+                {
+                    MegjelenitettTermekek.Add(t);
+                }
                 return true;
             }
             catch (Exception ex)
             {
                 Hibauzenet(ex);
                 return false;
+            }
+        }
+        #endregion
+        #region Keresés és Szűrés (A lényeg)
+        private void ApplyFilter()
+        {
+            string keresendoText = txtKereses.Text?.Trim().ToLower();
+
+            MegjelenitettTermekek.Clear();
+
+            
+            if (string.IsNullOrEmpty(keresendoText))
+            {
+                foreach (var t in MindenTermek)
+                {
+                    MegjelenitettTermekek.Add(t);
+                }
+            }
+            else
+            {
+                
+                var szurtLista = MindenTermek.Where(t =>
+                    t.Megnevezes.ToLower().Contains(keresendoText) ||
+                    t.Kategoria.ToLower().Contains(keresendoText)
+                ).ToList();
+
+               
+                foreach (var t in szurtLista)
+                {
+                    MegjelenitettTermekek.Add(t);
+                }
+            }
+
+            Kiiras();
+        }
+        private void TxtKereses_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ApplyFilter();
+        }
+        #endregion
+        #region Segédmetódusok
+        private void Kiiras()
+        {
+            if (MegjelenitettTermekek.Any())
+            {
+                double maxAr = MegjelenitettTermekek.Max(t => t.Egysegar);
+                txtStatus.Text = $"Találatok: {MegjelenitettTermekek.Count} db | Legdrágább: {maxAr:N0} Ft";
+            }
+            else
+            {
+                txtStatus.Text = "Nincs találat a keresett kifejezésre.";
             }
         }
         #endregion
@@ -80,10 +117,9 @@ namespace RaktarGUI
                     uzenet = $"Ismeretlen hiba történt: {ex.Message}";
                     break;
             }
-
             MessageBox.Show(uzenet, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+
         }
         #endregion
-
     }
 }
