@@ -6,7 +6,232 @@
         xmlns:local="clr-namespace:RaktarGUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+	<Window.Resources>
+		<SolidColorBrush x:Key="BrushPrimary" Color="#1E293B"/>
+		<SolidColorBrush x:Key="BrushSecondary" Color="#64748B"/>
+		<SolidColorBrush x:Key="BrushAccent" Color="#0F172A"/>
+		<SolidColorBrush x:Key="BrushBorder" Color="#CBD5E1"/>
+		<SolidColorBrush x:Key="BrushMuted" Color="#334155"/>
+		<SolidColorBrush x:Key="BrushWhite" Color="White"/>
+
+
+		<Style x:Key="TitleTextBlock" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="34"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="Foreground" Value="{StaticResource BrushPrimary}"/>
+		</Style>
+
+		<Style x:Key="SubtitleTextBlock" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="15"/>
+			<Setter Property="Foreground" Value="{StaticResource BrushSecondary}"/>
+			<Setter Property="Margin" Value="0,5,0,0"/>
+		</Style>
+
+		<Style x:Key="CardTitleTextBlock" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="Foreground" Value="{StaticResource BrushAccent}"/>
+			<Setter Property="Margin" Value="5,0,0,15"/>
+		</Style>
+
+		<Style x:Key="StatusTextBlock" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="13"/>
+			<Setter Property="Foreground" Value="{StaticResource BrushSecondary}"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+
+		<Style x:Key="VersionTextBlock" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="13"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="Foreground" Value="{StaticResource BrushMuted}"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+
+		<Style x:Key="DefaultButton" TargetType="Button">
+			<Setter Property="Width" Value="120"/>
+			<Setter Property="Height" Value="42"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="Margin" Value="0,0,10,0"/>
+		</Style>
+
+		<Style x:Key="SearchTextBox" TargetType="TextBox">
+			<Setter Property="Height" Value="42"/>
+			<Setter Property="Padding" Value="12,0"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="Background" Value="{StaticResource BrushWhite}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource BrushBorder}"/>
+		</Style>
+
+		<Style x:Key="MainDataGrid" TargetType="DataGrid">
+			<Setter Property="AutoGenerateColumns" Value="False"/>
+			<Setter Property="CanUserAddRows" Value="False"/>
+			<Setter Property="IsReadOnly" Value="True"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Background" Value="{StaticResource BrushWhite}"/>
+			<Setter Property="GridLinesVisibility" Value="Horizontal"/>
+			<Setter Property="HeadersVisibility" Value="Column"/>
+		</Style>
+
+		<Style x:Key="CardBorder" TargetType="Border">
+			<Setter Property="Background" Value="{StaticResource BrushWhite}"/>
+			<Setter Property="CornerRadius" Value="14"/>
+			<Setter Property="Padding" Value="15"/>
+		</Style>
+
+	</Window.Resources>
+
+	<Grid Margin="25">
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<Grid Grid.Row="0" Margin="0,0,0,25">
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+
+			<Grid>
+
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+				<TextBlock Grid.Row="0"
+                           Style="{StaticResource TitleTextBlock}"
+                           Text="SmartLog"/>
+
+				<TextBlock Grid.Row="1"
+                           Style="{StaticResource SubtitleTextBlock}"
+                           Text="Raktárkezelő rendszer"/>
+
+			</Grid>
+
+			<Border Grid.Column="1"
+                    Padding="15,8"
+                    CornerRadius="10"
+                    Background="{StaticResource BrushWhite}"
+                    VerticalAlignment="Center">
+
+				<TextBlock Text="Aktív rendszer"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource BrushAccent}"/>
+
+			</Border>
+
+		</Grid>
+
+		<Grid Grid.Row="1" Margin="0,0,0,20">
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="2*"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+
+			<TextBox x:Name="txtKereses"
+                     Grid.Column="0"
+                     Style="{StaticResource SearchTextBox}"
+                     Margin="0,0,15,0"
+                     ToolTip="Keresés név alapján"/>
+
+			<Button x:Name="btnKereses"
+                    Grid.Column="1"
+                    Style="{StaticResource DefaultButton}"
+                    Content="Keresés"/>
+
+			<Button x:Name="btnUj"
+                    Grid.Column="2"
+                    Style="{StaticResource DefaultButton}"
+                    Content="Új termék"/>
+
+			<Button x:Name="btnStatisztika"
+                    Grid.Column="3"
+                    Style="{StaticResource DefaultButton}"
+                    Content="Statisztika"/>
+
+			<Button x:Name="btnMentes"
+                    Grid.Column="4"
+                    Style="{StaticResource DefaultButton}"
+                    Margin="0"
+                    Content="Mentés"/>
+
+		</Grid>
+
+		<Border Grid.Row="2"
+                Style="{StaticResource CardBorder}">
+
+			<Grid>
+
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+
+				<TextBlock Text="Terméklista"
+                           Style="{StaticResource CardTitleTextBlock}"/>
+
+				<DataGrid x:Name="dgTermekek"
+                          Grid.Row="1"
+                          Style="{StaticResource MainDataGrid}">
+
+					<DataGrid.Columns>
+
+						<DataGridTextColumn Header="ID"
+                                            Binding="{Binding ID}"
+                                            Width="90"/>
+
+						<DataGridTextColumn Header="Megnevezés"
+                                            Binding="{Binding Megnevezes}"
+                                            Width="*"/>
+
+						<DataGridTextColumn Header="Kategória"
+                                            Binding="{Binding Kategoria}"
+                                            Width="200"/>
+
+						<DataGridTextColumn Header="Mennyiség"
+                                            Binding="{Binding Mennyiseg}"
+                                            Width="140"/>
+
+						<DataGridTextColumn Header="Egységár"
+                                            Binding="{Binding Egysegar}"
+                                            Width="140"/>
+
+					</DataGrid.Columns>
+
+				</DataGrid>
+
+			</Grid>
+
+		</Border>
+
+
+		<Grid Grid.Row="3" Margin="0,18,0,0">
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+
+			<TextBlock x:Name="txtStatus"
+                       Style="{StaticResource StatusTextBlock}"
+                       Text="Rendszer készen áll"/>
+
+			<TextBlock Grid.Column="1"
+                       Style="{StaticResource VersionTextBlock}"
+                       Text="SmartLog v1.0"/>
+
+		</Grid>
+
+	</Grid>
 </Window>
