@@ -5,8 +5,245 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RaktarGUI"
         mc:Ignorable="d"
-        Title="WindowStatistika" Height="450" Width="800">
-    <Grid>
-        
+               Title="Statisztika"
+        Height="650"
+        Width="1000"
+        Background="#F8FAFC">
+
+    <Window.Resources>
+
+        <SolidColorBrush x:Key="BrushPrimary" Color="#1E293B"/>
+        <SolidColorBrush x:Key="BrushSecondary" Color="#64748B"/>
+        <SolidColorBrush x:Key="BrushAccent" Color="#0F172A"/>
+        <SolidColorBrush x:Key="BrushWhite" Color="White"/>
+
+        <Style x:Key="CardBorder" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource BrushWhite}"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,20,20"/>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid Margin="25">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- FEJLÉC -->
+
+        <Grid Grid.Row="0" Margin="0,0,0,25">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel>
+
+                <TextBlock Text="Raktárstatisztika"
+                           FontSize="34"
+                           FontWeight="Bold"
+                           Foreground="{StaticResource BrushPrimary}"/>
+
+                <TextBlock Text="Automatikusan generált kimutatások"
+                           FontSize="15"
+                           Foreground="{StaticResource BrushSecondary}"/>
+
+            </StackPanel>
+
+        </Grid>
+
+        <!-- STAT KÁRTYÁK -->
+
+        <Grid Grid.Row="1" Margin="0,0,0,20">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Összes termék -->
+
+            <Border Grid.Column="0"
+                    Style="{StaticResource CardBorder}">
+
+                <StackPanel>
+
+                    <TextBlock Text="Összes termék"
+                               FontSize="15"
+                               Foreground="{StaticResource BrushSecondary}"/>
+
+                    <TextBlock x:Name="txtOsszesTermek"
+                               FontSize="38"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource BrushPrimary}"/>
+
+                </StackPanel>
+
+            </Border>
+
+            <!-- Kategóriák -->
+
+            <Border Grid.Column="1"
+                    Style="{StaticResource CardBorder}">
+
+                <StackPanel>
+
+                    <TextBlock Text="Kategóriák"
+                               FontSize="15"
+                               Foreground="{StaticResource BrushSecondary}"/>
+
+                    <TextBlock x:Name="txtKategoriak"
+                               FontSize="38"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource BrushPrimary}"/>
+
+                </StackPanel>
+
+            </Border>
+
+            <!-- Készletérték -->
+
+            <Border Grid.Column="2"
+                    Style="{StaticResource CardBorder}">
+
+                <StackPanel>
+
+                    <TextBlock Text="Készletérték"
+                               FontSize="15"
+                               Foreground="{StaticResource BrushSecondary}"/>
+
+                    <TextBlock x:Name="txtKeszletErtek"
+                               FontSize="32"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource BrushPrimary}"/>
+
+                </StackPanel>
+
+            </Border>
+
+            <!-- Alacsony készlet -->
+
+            <Border Grid.Column="3"
+                    Style="{StaticResource CardBorder}"
+                    Margin="0,0,0,20">
+
+                <StackPanel>
+
+                    <TextBlock Text="Alacsony készlet"
+                               FontSize="15"
+                               Foreground="{StaticResource BrushSecondary}"/>
+
+                    <TextBlock x:Name="txtAlacsonyKeszlet"
+                               FontSize="38"
+                               FontWeight="Bold"
+                               Foreground="#DC2626"/>
+
+                </StackPanel>
+
+            </Border>
+
+        </Grid>
+
+        <!-- ALSÓ RÉSZ -->
+
+        <Grid Grid.Row="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- TOP TERMÉKEK -->
+
+            <Border Grid.Column="0"
+                    Style="{StaticResource CardBorder}">
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Top termékek"
+                               FontSize="22"
+                               FontWeight="SemiBold"
+                               Foreground="{StaticResource BrushAccent}"
+                               Margin="0,0,0,20"/>
+
+                    <DataGrid x:Name="dgTopTermekek"
+                              Grid.Row="1"
+                              AutoGenerateColumns="False"
+                              HeadersVisibility="Column"
+                              BorderThickness="0"
+                              GridLinesVisibility="Horizontal"
+                              IsReadOnly="True">
+
+                        <DataGrid.Columns>
+
+                            <DataGridTextColumn Header="Megnevezés"
+                                                Binding="{Binding Megnevezes}"
+                                                Width="*"/>
+
+                            <DataGridTextColumn Header="Mennyiség"
+                                                Binding="{Binding Mennyiseg}"
+                                                Width="140"/>
+
+                            <DataGridTextColumn Header="Egységár"
+                                                Binding="{Binding Egysegar}"
+                                                Width="140"/>
+
+                            <DataGridTextColumn Header="Készletérték"
+                                                Binding="{Binding KeszletErtek}"
+                                                Width="160"/>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                </Grid>
+
+            </Border>
+
+            <!-- INFÓ PANEL -->
+
+            <Border Grid.Column="1"
+                    Style="{StaticResource CardBorder}"
+                    Margin="0,0,0,20">
+
+                <StackPanel>
+
+                    <TextBlock Text="Rendszerinformáció"
+                               FontSize="22"
+                               FontWeight="SemiBold"
+                               Foreground="{StaticResource BrushAccent}"
+                               Margin="0,0,0,20"/>
+
+                    <TextBlock x:Name="txtInfo1"
+                               FontSize="15"
+                               Margin="0,0,0,10"/>
+
+                    <TextBlock x:Name="txtInfo2"
+                               FontSize="15"
+                               Margin="0,0,0,10"/>
+
+                    <TextBlock x:Name="txtInfo3"
+                               FontSize="15"/>
+
+                </StackPanel>
+
+            </Border>
+
+        </Grid>
+
     </Grid>
+
 </Window>

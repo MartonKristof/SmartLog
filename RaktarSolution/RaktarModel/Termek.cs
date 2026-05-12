@@ -15,6 +15,14 @@ namespace RaktarModel
         public int Mennyiseg { get; set; }
         public double Egysegar { get; set; }
 
+        public double KeszletErtek
+        {
+            get
+            {
+                return Mennyiseg * Egysegar;
+            }
+        }
+
         public Termek(int iD, string megnevezes, string kategoria, int mennyiseg, double egysegar)
         {
             ID = iD;
