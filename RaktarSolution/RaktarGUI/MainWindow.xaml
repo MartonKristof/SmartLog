@@ -171,10 +171,6 @@
              Margin="0,0,15,0"
              ToolTip="Keresés név alapján"/>
 
-            <Button x:Name="btnKereses"
-            Grid.Column="1"
-            Style="{StaticResource DefaultButton}"
-            Content="Keresés"/>
 
             <Button x:Name="btnUj"
             Grid.Column="2"
