@@ -28,5 +28,40 @@ namespace RaktarModel
         {
             return $"{ID};{Megnevezes};{Kategoria};{Mennyiseg};{Egysegar}";
         }
+
+        #region Beolvas
+        public static List<Termek> Beolvas(string fajl)
+        {
+            if (!File.Exists(fajl))
+            {
+                throw new FileNotFoundException("A fájl nem található", fajl);
+            }
+
+            return File.ReadLines(fajl, Encoding.UTF8)
+                .Skip(1)
+                .Select(sor =>
+                {
+                    var darabolt = sor.Split(';');
+                    if (darabolt.Length != 5)
+                    {
+                        throw new FormatException($"Hibás sor: {sor}");
+                    }
+                    return new Termek(
+                        int.Parse(darabolt[0]),
+                        darabolt[1],
+                        darabolt[2],
+                        int.Parse(darabolt[3]),
+                        double.Parse(darabolt[4].Replace(',', '.'))
+                    );
+                })
+                .ToList();
+        }
+        #endregion
+        #region AppentoFile
+        public void AppendToFile(string fajl)
+        {
+            File.AppendAllText(fajl, Environment.NewLine + this.ToString(), Encoding.UTF8);
+        }
+        #endregion
     }
 }
