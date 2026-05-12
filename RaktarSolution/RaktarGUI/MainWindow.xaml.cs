@@ -126,10 +126,7 @@ namespace RaktarGUI
         private void btnStatisztika_Click(object sender, RoutedEventArgs e)
         {
             WindowStatistika ablak = new WindowStatistika(MegjelenitettTermekek);
-            if (ablak.ShowDialog() == true)
-            {
-                Termek statisztikaTermek;
-            }
+            ablak.ShowDialog();
         }
     }
 }

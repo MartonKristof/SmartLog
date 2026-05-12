@@ -3,29 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace RaktarGUI
 {
     public partial class WindowStatistika : Window
     {
-<<<<<<< Updated upstream
         private List<Termek> termekek;
 
-        public WindowStatistika(List<Termek> lista)
+        public WindowStatistika(ObservableCollection<Termek> lista)
         {
             InitializeComponent();
 
-            termekek = lista;
+            termekek = lista.ToList();
 
             BetoltStatisztika();
         }
@@ -40,36 +30,24 @@ namespace RaktarGUI
                 .Count()
                 .ToString();
 
-            int teljesErtek = (int)termekek.Sum(t => t.KeszletErtek);
-
+            double teljesErtek = termekek.Sum(t => t.Mennyiseg * t.Egysegar);
             txtKeszletErtek.Text = teljesErtek.ToString("N0") + " Ft";
 
+            
             txtAlacsonyKeszlet.Text = termekek
-                .Count(t => t.Mennyiseg < 5)
+                .Count(t => t.Mennyiseg <= 5)
                 .ToString();
 
+            
             dgTopTermekek.ItemsSource = termekek
-                .OrderByDescending(t => t.KeszletErtek)
+                .OrderByDescending(t => t.Mennyiseg * t.Egysegar)
                 .Take(5)
                 .ToList();
 
-            txtInfo1.Text = "• Utolsó frissítés: " +
-                            DateTime.Now.ToString("yyyy.MM.dd HH:mm");
-
-            txtInfo2.Text = "• Betöltött termékek: " +
-                            termekek.Count;
-
+            
+            txtInfo1.Text = "• Utolsó frissítés: " + DateTime.Now.ToString("yyyy.MM.dd HH:mm");
+            txtInfo2.Text = "• Betöltött termékek: " + termekek.Count;
             txtInfo3.Text = "• Rendszer állapot: Stabil";
-=======
-        ObservableCollection<Termek> Lista;
-        public Termek Ujfeladat;
-        public WindowStatistika(ObservableCollection<Termek> termekek)
-        {
-            InitializeComponent();
-            Lista = termekek;
->>>>>>> Stashed changes
         }
     }
 }
-
-
