@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace RaktarGUI
 {
-    /// <summary>
-    /// Interaction logic for UjTermekWindow.xaml
-    /// </summary>6
+    // valami 
     public partial class UjTermekWindow : Window
     {
         public Termek UjTermek;
