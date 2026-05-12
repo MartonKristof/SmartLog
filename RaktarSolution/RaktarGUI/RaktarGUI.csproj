@@ -94,5 +94,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RaktarModel\RaktarModel.csproj">
+      <Project>{5edd6251-7e38-49cc-a375-b0fe30d593fa}</Project>
+      <Name>RaktarModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

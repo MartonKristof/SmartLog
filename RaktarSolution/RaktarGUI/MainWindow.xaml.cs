@@ -34,11 +34,8 @@ namespace RaktarGUI
         #region Kiiras
         private void Kiiras()
         {
-            // A DataGrid már a Termek tulajdonságaira van kötve az XAML oszlopdefiníciók alapján,
-            // ezért közvetlenül az ObservableCollection-t adjuk meg ItemsSource-ként.
             dgTermekek.ItemsSource = Termekek;
 
-            // Legnagyobb egységár megjelenítése a státuszmezőben (ha nincs külön mező)
             if (Termekek != null && Termekek.Any())
             {
                 double maxAr = Termekek.Max(t => t.Egysegar);
@@ -50,6 +47,7 @@ namespace RaktarGUI
             }
         }
         #endregion
+
         #region Adatbetoltes
         public static bool Adatbetoltes(string fajl)
         {
