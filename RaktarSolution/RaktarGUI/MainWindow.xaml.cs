@@ -1,11 +1,12 @@
-﻿using System;
+﻿using RaktarModel;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using RaktarModel;
-using System.IO;
-using System.Collections.ObjectModel;
 
 namespace RaktarGUI
 {
@@ -121,5 +122,14 @@ namespace RaktarGUI
 
         }
         #endregion
+
+        private void btnStatisztika_Click(object sender, RoutedEventArgs e)
+        {
+            WindowStatistika ablak = new WindowStatistika(MegjelenitettTermekek);
+            if (ablak.ShowDialog() == true)
+            {
+                Termek statisztikaTermek;
+            }
+        }
     }
 }

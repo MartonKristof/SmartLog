@@ -1,6 +1,7 @@
 ﻿using RaktarModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace RaktarGUI
 {
     public partial class WindowStatistika : Window
     {
+<<<<<<< Updated upstream
         private List<Termek> termekek;
 
         public WindowStatistika(List<Termek> lista)
@@ -58,6 +60,14 @@ namespace RaktarGUI
                             termekek.Count;
 
             txtInfo3.Text = "• Rendszer állapot: Stabil";
+=======
+        ObservableCollection<Termek> Lista;
+        public Termek Ujfeladat;
+        public WindowStatistika(ObservableCollection<Termek> termekek)
+        {
+            InitializeComponent();
+            Lista = termekek;
+>>>>>>> Stashed changes
         }
     }
 }

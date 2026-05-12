@@ -155,7 +155,7 @@
 			<Button x:Name="btnStatisztika"
                     Grid.Column="3"
                     Style="{StaticResource DefaultButton}"
-                    Content="Statisztika"/>
+                    Content="Statisztika" Click="btnStatisztika_Click"/>
 
 			
 
