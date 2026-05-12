@@ -12,7 +12,7 @@ namespace RaktarGUI
 {
     public partial class MainWindow : Window
     {
-        
+
         public ObservableCollection<Termek> MegjelenitettTermekek { get; set; } = new ObservableCollection<Termek>();
         private List<Termek> MindenTermek = new List<Termek>();
 
@@ -58,7 +58,7 @@ namespace RaktarGUI
 
             MegjelenitettTermekek.Clear();
 
-            
+
             if (string.IsNullOrEmpty(keresendoText))
             {
                 foreach (var t in MindenTermek)
@@ -68,13 +68,13 @@ namespace RaktarGUI
             }
             else
             {
-                
+
                 var szurtLista = MindenTermek.Where(t =>
                     t.Megnevezes.ToLower().Contains(keresendoText) ||
                     t.Kategoria.ToLower().Contains(keresendoText)
                 ).ToList();
 
-               
+
                 foreach (var t in szurtLista)
                 {
                     MegjelenitettTermekek.Add(t);
@@ -127,6 +127,30 @@ namespace RaktarGUI
         {
             WindowStatistika ablak = new WindowStatistika(MegjelenitettTermekek);
             ablak.ShowDialog();
+        }
+
+        private void btnUj_Click(object sender, RoutedEventArgs e)
+        {
+            UjTermekWindow ablak = new UjTermekWindow();
+
+            if (ablak.ShowDialog() == true)
+            {
+                MindenTermek.Add(ablak.UjTermek);
+                MegjelenitettTermekek.Add(ablak.UjTermek);
+
+                string path = @"C:\Users\dfbbh\RaktarSolution\RaktarGUI\bin\Debug\Termekek.txt";
+
+                string sor =
+                    $"{ablak.UjTermek.ID};" +
+                    $"{ablak.UjTermek.Megnevezes};" +
+                    $"{ablak.UjTermek.Kategoria};" +
+                    $"{ablak.UjTermek.Mennyiseg};" +
+                    $"{ablak.UjTermek.Egysegar}";
+
+                File.AppendAllText(path, Environment.NewLine + sor);
+
+                Kiiras();
+            }
         }
     }
 }

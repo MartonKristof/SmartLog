@@ -179,7 +179,7 @@
             <Button x:Name="btnUj"
             Grid.Column="2"
             Style="{StaticResource DefaultButton}"
-            Content="Új termék"/>
+            Content="Új termék" Click="btnUj_Click"/>
 
             <Button x:Name="btnStatisztika"
             Grid.Column="3"
