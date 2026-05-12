@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Statisztika" 
         Height="650" 
-        Width="1000" 
+        Width="1050" 
         Background="#F8FAFC">
 
     <Window.Resources>
