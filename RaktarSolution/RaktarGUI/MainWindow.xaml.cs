@@ -132,24 +132,9 @@ namespace RaktarGUI
         private void btnUj_Click(object sender, RoutedEventArgs e)
         {
             UjTermekWindow ablak = new UjTermekWindow();
-
             if (ablak.ShowDialog() == true)
             {
-                MindenTermek.Add(ablak.UjTermek);
-                MegjelenitettTermekek.Add(ablak.UjTermek);
-
-                string path = @"C:\Users\dfbbh\RaktarSolution\RaktarGUI\bin\Debug\Termekek.txt";
-
-                string sor =
-                    $"{ablak.UjTermek.ID};" +
-                    $"{ablak.UjTermek.Megnevezes};" +
-                    $"{ablak.UjTermek.Kategoria};" +
-                    $"{ablak.UjTermek.Mennyiseg};" +
-                    $"{ablak.UjTermek.Egysegar}";
-
-                File.AppendAllText(path, Environment.NewLine + sor);
-
-                Kiiras();
+                Adatbetoltes("Termekek.txt");
             }
         }
     }

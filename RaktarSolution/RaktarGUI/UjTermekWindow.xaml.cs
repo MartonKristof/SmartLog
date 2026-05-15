@@ -1,24 +1,14 @@
 ﻿using RaktarModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO; 
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace RaktarGUI
 {
-    // valami 
     public partial class UjTermekWindow : Window
     {
         public Termek UjTermek;
+
         public UjTermekWindow()
         {
             InitializeComponent();
@@ -62,9 +52,20 @@ namespace RaktarGUI
                 ar
             );
 
-            MessageBox.Show("Termék sikeresen hozzáadva!");
+            try
+            {
+                string ujSor = $"{UjTermek.ID};{UjTermek.Megnevezes};{UjTermek.Kategoria};{UjTermek.Mennyiseg};{UjTermek.KeszletErtek}" + Environment.NewLine;
 
-            Close();
+                File.AppendAllText("Termekek.txt", ujSor);
+
+                MessageBox.Show("Termék sikeresen mentve a Termekek.txt fájlba!");
+                this.DialogResult = true;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hiba a mentés során: " + ex.Message);
+            }
         }
     }
 }
