@@ -1,0 +1,41 @@
+# SmartLog – Raktárkezelő Rendszer Specifikáció
+
+## 📋 Összefoglaló
+A **SmartLog** egy asztali alkalmazás (WPF/C#), amelynek célja egy kisebb raktár készletének digitális nyilvántartása. A rendszer lehetővé teszi a termékek adatainak tárolását egy szöveges fájlban (`Termekek.txt`), biztosítja a készlet gyors átláthatóságát, új elemek felvételét, valamint alapvető üzleti statisztikák készítését.
+
+---
+
+## 🛠 Funkcionális követelmények
+* **Főoldali megjelenítés:** Termékek listázása táblázatos formában indításkor.
+* **Keresés:** Szűrés név vagy egyéb tulajdonság alapján.
+* **Új termék rögzítése:** Külön ablakban felvitt adatok mentése és a lista azonnali frissítése.
+* **Statisztikai modul:** * Raktárkészlet teljes értéke.
+    * TOP 5 legdrágább termék.
+    * Alacsony készlet figyelmeztetés.
+    * Kategóriák száma és összes termékmennyiség.
+* **Adatperzisztencia:** Tartós tárolás szöveges fájlban.
+
+---
+
+## ⚙️ Nem funkcionális követelmények
+* **Platform:** Windows (.NET keretrendszer).
+* **Adattárolás:** Hordozható `Termekek.txt` fájl.
+* **Felhasználói felület:** Intuitív GUI külön ablakokkal (Main, Új termék, Statisztika).
+* **Validáció:** Hibás adatbevitel (pl. negatív ár) kezelése hibaüzenettel.
+* **Frissítés:** Az adatmódosítás azonnal látszik újraindítás nélkül.
+
+---
+
+## 👤 Felhasználói szerepkörök
+* **Raktárvezető / Adminisztrátor:** Teljes hozzáférés a listához, kereséshez, új termék felvételéhez és a statisztikákhoz.
+
+---
+
+## 📥 Rendszer bemenetek
+| Mező neve | Típus | Leírás |
+| :--- | :--- | :--- |
+| **Azonosító (ID)** | Egész szám | Egyedi azonosító a termékhez. |
+| **Név** | Szöveg | A termék megnevezése. |
+| **Kategória** | Szöveg | Besorolás (pl. műszaki, élelmiszer). |
+| **Egységár** | Lebegőpontos | A termék darabára. |
+| **Mennyiség** | Egész szám | Raktáron lévő darabszám. |
