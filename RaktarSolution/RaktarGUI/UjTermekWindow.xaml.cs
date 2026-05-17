@@ -1,6 +1,6 @@
 ﻿using RaktarModel;
 using System;
-using System.IO; 
+using System.IO;
 using System.Windows;
 
 namespace RaktarGUI
@@ -44,16 +44,34 @@ namespace RaktarGUI
                 return;
             }
 
-            UjTermek = new Termek(
-                id,
-                tbNev.Text,
-                tbKategoria.Text,
-                mennyiseg,
-                ar
-            );
-
             try
             {
+                // ID ellenőrzés
+                if (File.Exists("Termekek.txt"))
+                {
+                    var sorok = File.ReadAllLines("Termekek.txt");
+                    foreach (var sor in sorok)
+                    {
+                        var mezok = sor.Split(';');
+                        if (mezok.Length > 0 &&
+                            int.TryParse(mezok[0], out int letezoId) &&
+                            letezoId == id)
+                        {
+                            MessageBox.Show("Már létezik ilyen ID-jű termék!");
+                            return;
+                        }
+                    }
+                }
+
+                // Objektum létrehozás csak ha minden oké
+                UjTermek = new Termek(
+                    id,
+                    tbNev.Text,
+                    tbKategoria.Text,
+                    mennyiseg,
+                    ar
+                );
+
                 string ujSor = $"{UjTermek.ID};{UjTermek.Megnevezes};{UjTermek.Kategoria};{UjTermek.Mennyiseg};{UjTermek.KeszletErtek}" + Environment.NewLine;
 
                 File.AppendAllText("Termekek.txt", ujSor);
