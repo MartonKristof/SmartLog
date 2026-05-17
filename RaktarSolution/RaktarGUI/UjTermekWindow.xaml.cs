@@ -46,7 +46,6 @@ namespace RaktarGUI
 
             try
             {
-                // ID ellenőrzés
                 if (File.Exists("Termekek.txt"))
                 {
                     var sorok = File.ReadAllLines("Termekek.txt");
@@ -63,7 +62,6 @@ namespace RaktarGUI
                     }
                 }
 
-                // Objektum létrehozás csak ha minden oké
                 UjTermek = new Termek(
                     id,
                     tbNev.Text,
